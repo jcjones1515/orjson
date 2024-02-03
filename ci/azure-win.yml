@@ -21,6 +21,10 @@ steps:
   displayName: test dependencies
 - script: maturin.exe build --release --features=encoding_rs/simd-accel,no-panic,yyjson --strip --interpreter $(interpreter) --target $(target)
   displayName: build
+  env:
+    CFLAGS: "-O2 -fstrict-aliasing -flto=full"
+    LDFLAGS: "-O2 -fstrict-aliasing -flto=full -Wl,--as-needed"
+    RUSTFLAGS: "-C lto=fat -Z mir-opt-level=4 -Z virtual-function-elimination -D warnings"
 - script: python.exe -m pip install orjson --no-index --find-links=D:\a\1\s\target\wheels
   displayName: install
 - script: python.exe -m pytest -s -rxX -v test

@@ -29,3 +29,7 @@ fi
 if [[ $to_run == *"init"* ]]; then
 	"${_dir}"/init
 fi
+
+if [[ $to_run == *"yelp"* ]]; then
+	"${_dir}"/yelp.py
+fi
